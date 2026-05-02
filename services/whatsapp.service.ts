@@ -1,5 +1,7 @@
 import { httpClient } from '@/utils/http-client';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 import type { WhatsAppStatus } from '@/types/whatsapp';
+import {tokenManager} from "@/utils/token-manager";
 
 export const whatsappService = {
     getStatus: async (): Promise<WhatsAppStatus> => {
@@ -20,28 +22,25 @@ export const whatsappService = {
     },
 
 
-    createQRStream: (
-        onMessage: (data: any) => void,
-        onError?: (error: Event) => void
-    ): EventSource => {
+    createQRStream: (onMessage: (data: any) => void, onError?: (error: any) => void) => {
         const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-        const eventSource = new EventSource(`${API_BASE_URL}/whatsapp/qr/stream`, {
-            withCredentials: true,
+        const token = tokenManager.getAccessToken();
+
+        const eventSource = new EventSourcePolyfill(`${API_BASE_URL}/whatsapp/qr/stream`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
 
         eventSource.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                onMessage(data);
-            } catch (error) {
-                console.error('Erro ao processar mensagem SSE:', error);
-            }
+            const data = JSON.parse(event.data);
+            onMessage(data);
         };
 
-        if (onError) {
-            eventSource.onerror = onError;
-        }
+        eventSource.onerror = (err) => {
+            if (onError) onError(err);
+        };
 
-        return eventSource;
+        return eventSource as unknown as EventSource;
     },
 };

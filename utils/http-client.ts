@@ -1,7 +1,7 @@
 import { tokenManager } from './token-manager';
 import type { ApiResponse } from '@/types/api';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://fidelity-api.onrender.com/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface RequestConfig extends RequestInit {
     skipAuth?: boolean;

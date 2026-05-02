@@ -50,6 +50,7 @@ export const useWhatsAppQRStream = () => {
     const queryClient = useQueryClient();
 
     const startStream = () => {
+        console.log("Iniciando stream SSE...");
         if (eventSourceRef.current) {
             eventSourceRef.current.close();
         }
