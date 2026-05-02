@@ -1,27 +1,36 @@
 import type { Metadata } from "next";
-import { Inter, Rajdhani } from "next/font/google";
+import { Montserrat, Archivo_Black, Michroma } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { ToastProvider } from "@/providers/ToastProvider";
 
-const inter = Inter({
-    variable: "--font-inter",
+const montserrat = Montserrat({
+    variable: "--font-montserrat",
     subsets: ["latin"],
+    weight: ['400', '500', '600', '700', '800'],
     display: 'swap',
 });
 
-const rajdhani = Rajdhani({
-    variable: "--font-rajdhani",
+const archivoBlack = Archivo_Black({
+    variable: "--font-archivo-black",
     subsets: ["latin"],
-    weight: ['400', '500', '600', '700'],
+    weight: ['400'],
     display: 'swap',
 });
+
+const michroma = Michroma({
+    variable: "--font-michroma",
+    subsets: ["latin"],
+    weight: ['400'],
+    display: 'swap',
+})
 
 export const metadata: Metadata = {
     title: "Sr. Barriga - Whatsapp Bot",
-    description: "Cobranças de Mensalidade",
+    description: "Cobranças de Mensalidade - Powered by Computaria",
 };
 
 export default function RootLayout({
@@ -31,7 +40,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-BR" suppressHydrationWarning>
-        <body className={`${inter.variable} ${rajdhani.variable} antialiased`}>
+        <body className={`${montserrat.variable} ${archivoBlack.variable} ${michroma.variable} antialiased`}>
         <ThemeProvider>
             <ToastProvider>
                 <QueryProvider>

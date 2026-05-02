@@ -21,7 +21,7 @@ const LoadingRoot: React.FC<LoadingRootProps> = ({
     if (variant === 'spinner') {
         return (
             <div className={`${sizeClasses[size]} ${className}`}>
-                <div className="w-full h-full border-4 border-amber-200 border-t-amber-500 rounded-full animate-spin" />
+                <div className="w-full h-full border-2 border-white/20 border-t-white animate-spin" />
             </div>
         );
     }
@@ -36,9 +36,9 @@ const LoadingRoot: React.FC<LoadingRootProps> = ({
 
         return (
             <div className={`flex gap-2 ${className}`}>
-                <div className={`${dotSize[size]} bg-amber-500 rounded-full animate-bounce`} style={{ animationDelay: '0ms' }} />
-                <div className={`${dotSize[size]} bg-amber-500 rounded-full animate-bounce`} style={{ animationDelay: '150ms' }} />
-                <div className={`${dotSize[size]} bg-amber-500 rounded-full animate-bounce`} style={{ animationDelay: '300ms' }} />
+                <div className={`${dotSize[size]} bg-white animate-bounce`} style={{ animationDelay: '0ms' }} />
+                <div className={`${dotSize[size]} bg-white animate-bounce`} style={{ animationDelay: '150ms' }} />
+                <div className={`${dotSize[size]} bg-white animate-bounce`} style={{ animationDelay: '300ms' }} />
             </div>
         );
     }
@@ -46,7 +46,7 @@ const LoadingRoot: React.FC<LoadingRootProps> = ({
     if (variant === 'pulse') {
         return (
             <div className={`${sizeClasses[size]} ${className}`}>
-                <div className="w-full h-full bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full animate-pulse" />
+                <div className="w-full h-full bg-white animate-pulse-soft" />
             </div>
         );
     }
@@ -64,11 +64,11 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ show, message, children
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-4 animate-slide-in-up">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+            <div className="bg-[#0A0A0A] border-2 border-white p-8 flex flex-col items-center gap-4 animate-slide-in-up chamfer">
                 {children || <LoadingRoot size="lg" />}
                 {message && (
-                    <p className="text-zinc-700 dark:text-zinc-300 font-medium text-center">
+                    <p className="text-white body-text text-center">
                         {message}
                     </p>
                 )}
@@ -83,15 +83,15 @@ interface LoadingScreenProps {
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = 'Carregando...' }) => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-900">
-            <div className="flex flex-col items-center gap-6">
-                {/* Logo ou Ícone do Computaria */}
+        <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] bg-pattern">
+            <div className="flex flex-col items-center gap-8">
+                {/* Logo Chip */}
                 <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full blur-xl opacity-50 animate-pulse" />
-                    <div className="relative w-20 h-20 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full flex items-center justify-center shadow-2xl">
-                        <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center">
-                            <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <div className="absolute inset-0 bg-white/20 blur-2xl animate-glow" />
+                    <div className="relative w-24 h-24 bg-white flex items-center justify-center chamfer">
+                        <div className="w-20 h-20 bg-[#0A0A0A] flex items-center justify-center chamfer-sm">
+                            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                                <path strokeLinecap="square" strokeLinejoin="miter" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = 'Carregando...'
 
                 <LoadingRoot size="md" variant="dots" />
 
-                <p className="text-zinc-600 dark:text-zinc-400 font-medium text-lg">
+                <p className="text-white/70 body-text text-lg tracking-wide">
                     {message}
                 </p>
             </div>
@@ -122,7 +122,7 @@ const LoadingInline: React.FC<LoadingInlineProps> = ({
         <div className={`flex items-center gap-3 ${className}`}>
             <LoadingRoot size={size} variant="spinner" />
             {text && (
-                <span className="text-zinc-600 dark:text-zinc-400 font-medium">
+                <span className="text-white/70 body-text">
                     {text}
                 </span>
             )}
