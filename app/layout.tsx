@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Rajdhani } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { ToastProvider } from "@/providers/ToastProvider";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const inter = Inter({
+    variable: "--font-inter",
     subsets: ["latin"],
+    display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+const rajdhani = Rajdhani({
+    variable: "--font-rajdhani",
     subsets: ["latin"],
+    weight: ['400', '500', '600', '700'],
+    display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -28,12 +31,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-BR" suppressHydrationWarning>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${inter.variable} ${rajdhani.variable} antialiased`}>
         <ThemeProvider>
             <ToastProvider>
                 <QueryProvider>
                     <AuthProvider>
-                            {children}
+                        {children}
                     </AuthProvider>
                 </QueryProvider>
             </ToastProvider>
