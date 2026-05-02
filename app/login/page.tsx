@@ -46,7 +46,7 @@ export default function LoginPage() {
         try {
             await login(formData);
         } catch (error) {
-            showError(error instanceof Error ? error.message : 'Erro ao fazer login');
+            console.log(error instanceof Error ? error.message : 'Erro ao fazer login');
         } finally {
             setIsSubmitting(false);
         }

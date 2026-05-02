@@ -32,7 +32,6 @@ export default function HomePage() {
     const handleDisconnect = async () => {
         try {
             await disconnectMutation.mutateAsync();
-            success('WhatsApp desconectado com sucesso');
             setShowDisconnectModal(false);
         } catch (error) {
             console.log(error instanceof Error ? error.message : 'Erro ao desconectar');
