@@ -5,36 +5,43 @@ import { DashboardLayout } from '@/components/app/Layout';
 import { Button } from '@/components/ui/Button';
 import { Loading } from '@/components/ui/Loading';
 import { Modal } from '@/components/ui/Modal';
-import { useWhatsAppStatus, useWhatsAppConnect, useWhatsAppDisconnect, useWhatsAppQRStream, useExecuteCharge } from '@/hooks/useWhatsapp';
+import { useWhatsAppWebSocket } from '@/hooks/useWhatsAppWebSocket';
+import { useExecuteCharge } from '@/hooks/useWhatsapp';
 import { useToast } from '@/providers/ToastProvider';
 import QRCode from 'react-qr-code';
 
 export default function HomePage() {
-    const { data: status, isLoading: statusLoading } = useWhatsAppStatus();
-    const connectMutation = useWhatsAppConnect();
-    const disconnectMutation = useWhatsAppDisconnect();
+    const {
+        status,
+        qrCode,
+        isConnecting,
+        isDisconnecting,
+        connect,
+        disconnect
+    } = useWhatsAppWebSocket();
+
     const executeChargeMutation = useExecuteCharge();
-    const { qrCode, connectionStatus, startStream, stopStream } = useWhatsAppQRStream();
     const { success, error: showError } = useToast();
     const [showQRModal, setShowQRModal] = useState(false);
     const [showDisconnectModal, setShowDisconnectModal] = useState(false);
 
     const handleConnect = async () => {
         try {
-            await connectMutation.mutateAsync();
             setShowQRModal(true);
-            startStream();
+            await connect();
         } catch (error) {
+            setShowQRModal(false);
             showError(error instanceof Error ? error.message : 'Erro ao iniciar conexão');
         }
     };
 
     const handleDisconnect = async () => {
         try {
-            await disconnectMutation.mutateAsync();
+            await disconnect();
+            success('WhatsApp desconectado com sucesso');
             setShowDisconnectModal(false);
         } catch (error) {
-            console.log(error instanceof Error ? error.message : 'Erro ao desconectar');
+            showError(error instanceof Error ? error.message : 'Erro ao desconectar');
         }
     };
 
@@ -48,25 +55,16 @@ export default function HomePage() {
 
     const handleCloseQRModal = () => {
         setShowQRModal(false);
-        stopStream();
     };
 
     React.useEffect(() => {
-        if (connectionStatus === 'connected') {
+        if (status.isConnected && showQRModal) {
             success('WhatsApp conectado com sucesso!');
             handleCloseQRModal();
         }
-    }, [connectionStatus]);
+    }, [status.isConnected, showQRModal]);
 
-    if (statusLoading) {
-        return (
-            <DashboardLayout>
-                <Loading.Inline size="lg" text="Carregando status..." className="justify-center py-20" />
-            </DashboardLayout>
-        );
-    }
-
-    const isConnected = status?.isConnected ?? false;
+    const isConnected = status.isConnected;
 
     return (
         <DashboardLayout>
@@ -94,7 +92,7 @@ export default function HomePage() {
                                         STATUS DA CONEXÃO
                                     </h2>
                                     <p className="text-xs tech-text text-white/40 tracking-wider">
-                                        WHATSAPP BOT
+                                        WHATSAPP BOT • TEMPO REAL
                                     </p>
                                 </div>
 
@@ -154,6 +152,7 @@ export default function HomePage() {
                                             variant="danger"
                                             size="md"
                                             onClick={() => setShowDisconnectModal(true)}
+                                            disabled={isDisconnecting}
                                         >
                                             <Button.Icon>
                                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -184,8 +183,8 @@ export default function HomePage() {
                                         variant="primary"
                                         size="md"
                                         onClick={handleConnect}
-                                        loading={connectMutation.isPending}
-                                        disabled={connectMutation.isPending}
+                                        loading={isConnecting}
+                                        disabled={isConnecting}
                                     >
                                         <Button.Icon>
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -287,7 +286,7 @@ export default function HomePage() {
 
                     <div className="relative p-8">
                         <div className="flex flex-col items-center">
-                            {connectionStatus === 'connecting' && !qrCode && (
+                            {isConnecting && !qrCode && (
                                 <div className="flex flex-col items-center gap-4 py-8">
                                     <Loading.Root size="lg" />
                                     <p className="text-white/70 body-text text-center">
@@ -328,7 +327,7 @@ export default function HomePage() {
                                 </div>
                             )}
 
-                            {connectionStatus === 'connected' && (
+                            {status.isConnected && (
                                 <div className="flex flex-col items-center gap-4 py-8">
                                     <div className="w-16 h-16 bg-green-500/20 border-2 border-green-500 flex items-center justify-center chamfer">
                                         <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -384,8 +383,8 @@ export default function HomePage() {
                                 variant="danger"
                                 size="md"
                                 onClick={handleDisconnect}
-                                loading={disconnectMutation.isPending}
-                                disabled={disconnectMutation.isPending}
+                                loading={isDisconnecting}
+                                disabled={isDisconnecting}
                                 className="flex-1"
                             >
                                 <Button.Text>DESCONECTAR</Button.Text>
