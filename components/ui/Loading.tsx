@@ -2,7 +2,7 @@ import React from 'react';
 
 interface LoadingRootProps {
     size?: 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'spinner' | 'dots' | 'pulse';
+    variant?: 'spinner' | 'dots' | 'pulse' | 'line' | 'minimal';
     className?: string;
 }
 
@@ -18,35 +18,79 @@ const LoadingRoot: React.FC<LoadingRootProps> = ({
         xl: 'w-16 h-16'
     };
 
+    // Spinner circular clean
     if (variant === 'spinner') {
         return (
             <div className={`${sizeClasses[size]} ${className}`}>
-                <div className="w-full h-full border-2 border-white/20 border-t-white animate-spin" />
+                <div className="w-full h-full border-2 border-white/20 border-t-white rounded-full animate-spin" />
             </div>
         );
     }
 
+    // Dots pulsantes
     if (variant === 'dots') {
         const dotSize = {
-            sm: 'w-2 h-2',
-            md: 'w-3 h-3',
-            lg: 'w-4 h-4',
-            xl: 'w-5 h-5'
+            sm: 'w-1.5 h-1.5',
+            md: 'w-2 h-2',
+            lg: 'w-3 h-3',
+            xl: 'w-4 h-4'
         };
 
         return (
-            <div className={`flex gap-2 ${className}`}>
-                <div className={`${dotSize[size]} bg-white animate-bounce`} style={{ animationDelay: '0ms' }} />
-                <div className={`${dotSize[size]} bg-white animate-bounce`} style={{ animationDelay: '150ms' }} />
-                <div className={`${dotSize[size]} bg-white animate-bounce`} style={{ animationDelay: '300ms' }} />
+            <div className={`flex gap-1.5 ${className}`}>
+                <div className={`${dotSize[size]} bg-white rounded-full animate-bounce`} style={{ animationDelay: '0ms' }} />
+                <div className={`${dotSize[size]} bg-white rounded-full animate-bounce`} style={{ animationDelay: '150ms' }} />
+                <div className={`${dotSize[size]} bg-white rounded-full animate-bounce`} style={{ animationDelay: '300ms' }} />
             </div>
         );
     }
 
+    // Linha animada (progress bar infinita)
+    if (variant === 'line') {
+        const lineHeight = {
+            sm: 'h-0.5',
+            md: 'h-1',
+            lg: 'h-1.5',
+            xl: 'h-2'
+        };
+
+        return (
+            <div className={`w-full ${lineHeight[size]} bg-white/10 overflow-hidden ${className}`}>
+                <div className="h-full w-1/3 bg-white animate-line-loader" />
+            </div>
+        );
+    }
+
+    // Minimal - apenas 3 barrinhas
+    if (variant === 'minimal') {
+        const barHeight = {
+            sm: 'h-3',
+            md: 'h-4',
+            lg: 'h-6',
+            xl: 'h-8'
+        };
+
+        const barWidth = {
+            sm: 'w-0.5',
+            md: 'w-1',
+            lg: 'w-1.5',
+            xl: 'w-2'
+        };
+
+        return (
+            <div className={`flex gap-1 items-center ${className}`}>
+                <div className={`${barWidth[size]} ${barHeight[size]} bg-white animate-bar-1`} />
+                <div className={`${barWidth[size]} ${barHeight[size]} bg-white animate-bar-2`} />
+                <div className={`${barWidth[size]} ${barHeight[size]} bg-white animate-bar-3`} />
+            </div>
+        );
+    }
+
+    // Pulse
     if (variant === 'pulse') {
         return (
             <div className={`${sizeClasses[size]} ${className}`}>
-                <div className="w-full h-full bg-white animate-pulse-soft" />
+                <div className="w-full h-full bg-white rounded-full animate-pulse-soft" />
             </div>
         );
     }
@@ -66,7 +110,7 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ show, message, children
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
             <div className="bg-[#0A0A0A] border-2 border-white p-8 flex flex-col items-center gap-4 animate-slide-in-up chamfer">
-                {children || <LoadingRoot size="lg" />}
+                {children || <LoadingRoot size="lg" variant="minimal" />}
                 {message && (
                     <p className="text-white body-text text-center">
                         {message}
@@ -97,7 +141,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = 'Carregando...'
                     </div>
                 </div>
 
-                <LoadingRoot size="md" variant="dots" />
+                <LoadingRoot size="md" variant="minimal" />
 
                 <p className="text-white/70 body-text text-lg tracking-wide">
                     {message}
@@ -111,16 +155,18 @@ interface LoadingInlineProps {
     size?: 'sm' | 'md' | 'lg';
     text?: string;
     className?: string;
+    variant?: 'spinner' | 'dots' | 'pulse' | 'line' | 'minimal';
 }
 
 const LoadingInline: React.FC<LoadingInlineProps> = ({
                                                          size = 'md',
                                                          text,
-                                                         className = ''
+                                                         className = '',
+                                                         variant = 'minimal'
                                                      }) => {
     return (
         <div className={`flex items-center gap-3 ${className}`}>
-            <LoadingRoot size={size} variant="spinner" />
+            <LoadingRoot size={size} variant={variant} />
             {text && (
                 <span className="text-white/70 body-text">
                     {text}

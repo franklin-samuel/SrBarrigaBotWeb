@@ -20,6 +20,7 @@ export const useWhatsAppWebSocket = () => {
     const [isConnecting, setIsConnecting] = useState(false);
     const [isDisconnecting, setIsDisconnecting] = useState(false);
     const [isExecutingCharge, setIsExecutingCharge] = useState(false);
+    const [isLoadingInitialStatus, setIsLoadingInitialStatus] = useState(true);
 
     const socketRef = useRef<Socket | null>(null);
 
@@ -29,6 +30,7 @@ export const useWhatsAppWebSocket = () => {
 
         if (!token) {
             console.warn('No token available for WebSocket connection');
+            setIsLoadingInitialStatus(false);
             return;
         }
 
@@ -55,6 +57,7 @@ export const useWhatsAppWebSocket = () => {
         socket.on('whatsapp:status', (data: WhatsAppStatus) => {
             console.log('Status update:', data);
             setStatus(data);
+            setIsLoadingInitialStatus(false);
 
             if (data.isConnected) {
                 setQrCode(null);
@@ -65,6 +68,7 @@ export const useWhatsAppWebSocket = () => {
         socket.on('whatsapp:qr', (data: WhatsAppQRData) => {
             console.log('QR Code received');
             setQrCode(data.qrCode);
+            setIsLoadingInitialStatus(false);
         });
 
         return () => {
@@ -121,6 +125,7 @@ export const useWhatsAppWebSocket = () => {
                 isConnected: response.isConnected,
                 needsQR: response.needsQR,
             });
+            setIsLoadingInitialStatus(false);
 
             if (response.qrCode) {
                 setQrCode(response.qrCode);
@@ -133,6 +138,7 @@ export const useWhatsAppWebSocket = () => {
         qrCode,
         isConnecting,
         isDisconnecting,
+        isLoadingInitialStatus,
         connect,
         disconnect,
         refreshStatus,

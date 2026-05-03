@@ -16,6 +16,7 @@ export default function HomePage() {
         qrCode,
         isConnecting,
         isDisconnecting,
+        isLoadingInitialStatus,
         connect,
         disconnect
     } = useWhatsAppWebSocket();
@@ -95,27 +96,54 @@ export default function HomePage() {
                                     </p>
                                 </div>
 
-                                <div className={`px-4 py-2 border-2 ${
-                                    isConnected
-                                        ? 'border-green-500 bg-green-500/10'
-                                        : 'border-red-500 bg-red-500/10'
-                                }`}>
-                                    <div className="flex items-center gap-2">
-                                        <div className={`w-2 h-2 ${
-                                            isConnected ? 'bg-green-500' : 'bg-red-500'
-                                        } animate-pulse-soft`} />
-                                        <span className={`text-xs tech-text tracking-wider ${
-                                            isConnected ? 'text-green-500' : 'text-red-500'
-                                        }`}>
-                                            {isConnected ? 'CONECTADO' : 'DESCONECTADO'}
-                                        </span>
+                                {isLoadingInitialStatus ? (
+                                    <div className="px-4 py-2 border-2 border-white/30 bg-white/5">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-white/40 animate-pulse-soft" />
+                                            <span className="text-xs tech-text tracking-wider text-white/60">
+                                                CARREGANDO...
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
+                                ) : (
+                                    <div className={`px-4 py-2 border-2 ${
+                                        isConnected
+                                            ? 'border-green-500 bg-green-500/10'
+                                            : 'border-red-500 bg-red-500/10'
+                                    }`}>
+                                        <div className="flex items-center gap-2">
+                                            <div className={`w-2 h-2 ${
+                                                isConnected ? 'bg-green-500' : 'bg-red-500'
+                                            } animate-pulse-soft`} />
+                                            <span className={`text-xs tech-text tracking-wider ${
+                                                isConnected ? 'text-green-500' : 'text-red-500'
+                                            }`}>
+                                                {isConnected ? 'CONECTADO' : 'DESCONECTADO'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="h-px bg-white/10 mb-6" />
 
-                            {isConnected ? (
+                            {isLoadingInitialStatus ? (
+                                <div className="space-y-4">
+                                    <div className="flex items-start gap-3">
+                                        <div className="w-5 h-5 flex-shrink-0 mt-0.5">
+                                            <Loading.Root size="sm" variant="spinner" />
+                                        </div>
+                                        <div>
+                                            <p className="text-white body-text mb-1">
+                                                Verificando status da conexão...
+                                            </p>
+                                            <p className="text-xs text-white/50 body-text">
+                                                Aguarde enquanto sincronizamos com o servidor
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : isConnected ? (
                                 <div className="space-y-4">
                                     <div className="flex items-start gap-3">
                                         <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -249,10 +277,10 @@ export default function HomePage() {
                             </h3>
                         </div>
                         <p className="text-2xl text-white body-text">
-                            {isConnected ? 'Ativa' : 'Inativa'}
+                            {isLoadingInitialStatus ? <Loading.Root size="lg" variant="minimal" /> : (isConnected ? 'Ativa' : 'Inativa')}
                         </p>
                         <p className="text-xs text-white/40 mt-1 body-text">
-                            {isConnected ? 'Sistema operacional' : 'Aguardando conexão'}
+                            {isLoadingInitialStatus ? 'Verificando...' : (isConnected ? 'Sistema operacional' : 'Aguardando conexão')}
                         </p>
                     </div>
                 </div>

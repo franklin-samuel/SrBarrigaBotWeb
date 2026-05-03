@@ -229,6 +229,43 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+/* Novas animações para loaders clean */
+@keyframes lineLoader {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(400%);
+    }
+}
+
+@keyframes bar1 {
+    0%, 100% {
+        transform: scaleY(0.4);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes bar2 {
+    0%, 100% {
+        transform: scaleY(0.4);
+    }
+    33% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes bar3 {
+    0%, 100% {
+        transform: scaleY(0.4);
+    }
+    66% {
+        transform: scaleY(1);
+    }
+}
+
 .animate-slide-in-right {
     animation: slideInRight 0.3s ease-out forwards;
 }
@@ -251,6 +288,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-glow {
     animation: glowPulse 2s ease-in-out infinite;
+}
+
+.animate-line-loader {
+    animation: lineLoader 1.5s ease-in-out infinite;
+}
+
+.animate-bar-1 {
+    animation: bar1 1s ease-in-out infinite;
+}
+
+.animate-bar-2 {
+    animation: bar2 1s ease-in-out infinite;
+}
+
+.animate-bar-3 {
+    animation: bar3 1s ease-in-out infinite;
 }
 
 /* Scrollbar Brutalist */
