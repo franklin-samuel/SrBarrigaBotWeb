@@ -7,7 +7,6 @@ export default function SettingsPage() {
     return (
         <DashboardLayout>
             <div className="space-y-8">
-                {/* Header */}
                 <div className="border-b-2 border-white/20 pb-6">
                     <h1 className="text-3xl lg:text-4xl mb-2 text-white">
                         CONFIGURAÇÕES
@@ -17,14 +16,12 @@ export default function SettingsPage() {
                     </p>
                 </div>
 
-                {/* Coming Soon Card */}
                 <div className="relative">
                     <div className="absolute -inset-1 bg-white/10 blur-xl" />
                     <div className="relative bg-[#0A0A0A] border-2 border-white chamfer p-12">
                         <div className="absolute inset-3 border border-white/20 chamfer-sm pointer-events-none" />
 
                         <div className="relative flex flex-col items-center justify-center text-center space-y-6">
-                            {/* Icon */}
                             <div className="relative">
                                 <div className="absolute inset-0 bg-white/20 blur-xl" />
                                 <div className="relative w-24 h-24 bg-white flex items-center justify-center chamfer">
@@ -37,7 +34,6 @@ export default function SettingsPage() {
                                 </div>
                             </div>
 
-                            {/* Text */}
                             <div className="space-y-3 max-w-md">
                                 <h2 className="text-2xl text-white">
                                     EM DESENVOLVIMENTO
@@ -69,7 +65,6 @@ export default function SettingsPage() {
                                 </ul>
                             </div>
 
-                            {/* Decorative Elements */}
                             <div className="flex gap-2 pt-4">
                                 <div className="w-2 h-2 bg-white/20" />
                                 <div className="w-2 h-2 bg-white/40" />
@@ -79,7 +74,6 @@ export default function SettingsPage() {
                     </div>
                 </div>
 
-                {/* Info Footer */}
                 <div className="text-center">
                     <p className="text-xs tech-text text-white/30 tracking-widest">
                         AGUARDE ATUALIZAÇÕES FUTURAS

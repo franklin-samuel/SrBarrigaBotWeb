@@ -67,28 +67,20 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] bg-pattern p-4 relative overflow-hidden">
-            {/* Diagonal Accent Lines - Top Left */}
             <div className="absolute top-0 left-0 w-1 h-32 bg-white transform -rotate-45 origin-top-left opacity-50" />
             <div className="absolute top-0 left-4 w-1 h-24 bg-white transform -rotate-45 origin-top-left opacity-30" />
 
-            {/* Diagonal Accent Lines - Bottom Right */}
             <div className="absolute bottom-0 right-0 w-1 h-32 bg-white transform -rotate-45 origin-bottom-right opacity-50" />
             <div className="absolute bottom-0 right-4 w-1 h-24 bg-white transform -rotate-45 origin-bottom-right opacity-30" />
 
-            {/* Login Card */}
             <div className="relative w-full max-w-md z-10">
-                {/* Outer Glow */}
                 <div className="absolute -inset-1 bg-white/10 blur-xl animate-glow" />
 
-                {/* Card with Chamfered Corners */}
                 <div className="relative bg-[#0A0A0A] border-2 border-white chamfer overflow-hidden">
-                    {/* Inner Border */}
                     <div className="absolute inset-3 border border-white/20 chamfer-sm pointer-events-none" />
 
                     <div className="relative p-8">
-                        {/* Logo Section */}
                         <div className="text-center mb-10">
-                            {/* Chip Icon */}
                             <div className="flex justify-center mb-6">
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-white/20 blur-xl" />
@@ -102,12 +94,10 @@ export default function LoginPage() {
                                 </div>
                             </div>
 
-                            {/* Title */}
                             <h1 className="text-4xl mb-3 text-white text-glow">
                                 SR. BARRIGA BOT
                             </h1>
 
-                            {/* Subtitle */}
                             <p className="text-xs tech-text text-white/60 tracking-widest mb-1">
                                 POWERED BY
                             </p>
@@ -115,7 +105,6 @@ export default function LoginPage() {
                                 COMPUTARIA
                             </p>
 
-                            {/* Divider */}
                             <div className="flex items-center justify-center gap-2 mt-4">
                                 <div className="h-px w-12 bg-white/20" />
                                 <div className="w-1 h-1 bg-white/40" />
@@ -127,7 +116,6 @@ export default function LoginPage() {
                             </p>
                         </div>
 
-                        {/* Login Form */}
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <Input.Group>
                                 <Input.Wrapper>
@@ -184,7 +172,6 @@ export default function LoginPage() {
                                 </Input.Wrapper>
                             </Input.Group>
 
-                            {/* Submit Button */}
                             <Button.Root
                                 type="submit"
                                 variant="primary"
@@ -202,7 +189,6 @@ export default function LoginPage() {
                             </Button.Root>
                         </form>
 
-                        {/* Footer */}
                         <div className="mt-8 pt-6 border-t border-white/10 text-center">
                             <p className="text-xs tech-text text-white/30 tracking-widest">
                                 © 2025 COMPUTARIA

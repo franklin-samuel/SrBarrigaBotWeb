@@ -79,7 +79,6 @@ export default function HomePage() {
                     </p>
                 </div>
 
-                {/* Status Card */}
                 <div className="relative">
                     <div className="absolute -inset-1 bg-white/10 blur-xl" />
                     <div className="relative bg-[#0A0A0A] border-2 border-white chamfer p-6">
@@ -199,9 +198,7 @@ export default function HomePage() {
                     </div>
                 </div>
 
-                {/* Info Cards */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Card 1 */}
                     <div className="bg-[#0A0A0A] border-2 border-white/30 p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 bg-white/10 border border-white/30 flex items-center justify-center chamfer-sm">
@@ -221,7 +218,6 @@ export default function HomePage() {
                         </p>
                     </div>
 
-                    {/* Card 2 */}
                     <div className="bg-[#0A0A0A] border-2 border-white/30 p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 bg-white/10 border border-white/30 flex items-center justify-center chamfer-sm">
@@ -241,7 +237,6 @@ export default function HomePage() {
                         </p>
                     </div>
 
-                    {/* Card 3 */}
                     <div className="bg-[#0A0A0A] border-2 border-white/30 p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 bg-white/10 border border-white/30 flex items-center justify-center chamfer-sm">
@@ -263,7 +258,6 @@ export default function HomePage() {
                 </div>
             </div>
 
-            {/* QR Code Modal */}
             <Modal.Root open={showQRModal} onClose={handleCloseQRModal} size="md">
                 <div className="bg-[#0A0A0A] border-2 border-white chamfer overflow-hidden">
                     <div className="absolute inset-3 border border-white/20 chamfer-sm pointer-events-none" />
@@ -344,7 +338,6 @@ export default function HomePage() {
                 </div>
             </Modal.Root>
 
-            {/* Disconnect Confirmation Modal */}
             <Modal.Root open={showDisconnectModal} onClose={() => setShowDisconnectModal(false)} size="sm">
                 <div className="bg-[#0A0A0A] border-2 border-red-500 chamfer overflow-hidden">
                     <div className="absolute inset-3 border border-red-500/20 chamfer-sm pointer-events-none" />
