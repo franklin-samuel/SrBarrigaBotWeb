@@ -58,12 +58,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 <div className="p-6 border-b-2 border-white/20">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            {/* Logo Chip */}
                             <div className="relative w-10 h-10 bg-white flex items-center justify-center chamfer-sm">
                                 <div className="w-8 h-8 bg-[#0A0A0A] flex items-center justify-center chamfer-sm">
-                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                                        <path strokeLinecap="square" strokeLinejoin="miter" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
+                                    <img src="logo.png" className="w-8 h-8" />
                                 </div>
                             </div>
 

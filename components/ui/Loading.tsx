@@ -134,9 +134,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = 'Carregando...'
                     <div className="absolute inset-0 bg-white/20 blur-2xl animate-glow" />
                     <div className="relative w-24 h-24 bg-white flex items-center justify-center chamfer">
                         <div className="w-20 h-20 bg-[#0A0A0A] flex items-center justify-center chamfer-sm">
-                            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                                <path strokeLinecap="square" strokeLinejoin="miter" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
+                            <img alt="Logo Computaria" src="logo.png" className="w-20 h-20" />
                         </div>
                     </div>
                 </div>

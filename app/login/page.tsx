@@ -86,9 +86,7 @@ export default function LoginPage() {
                                     <div className="absolute inset-0 bg-white/20 blur-xl" />
                                     <div className="relative w-20 h-20 bg-white flex items-center justify-center chamfer">
                                         <div className="w-16 h-16 bg-[#0A0A0A] flex items-center justify-center chamfer-sm">
-                                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                                                <path strokeLinecap="square" strokeLinejoin="miter" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                            </svg>
+                                            <img alt="Logo Computaria" src="logo.png" className="w-20 h-16" />
                                         </div>
                                     </div>
                                 </div>
