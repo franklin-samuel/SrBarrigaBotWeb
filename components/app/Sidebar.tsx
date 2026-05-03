@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
+import {Loading} from "@/components/ui/Loading";
 
 interface SidebarProps {
     isOpen: boolean;
@@ -96,7 +97,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm text-white body-text truncate">
-                                {user?.name || 'Usuário'}
+                                {user?.name || <Loading.Root size="md" variant="line"/>}
                             </p>
                             <p className="text-xs text-white/40 tech-text truncate">
                                 {user?.email || ''}
